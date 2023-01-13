@@ -31,10 +31,11 @@ public class ApplicationBean implements Serializable{
         this.coordinatesRowList = coordinatesRowList;
     }
 
-    public void add(CoordinatesRow coordinatesRow){
+    public void add(){
 // TODO: verify getting data
-        coordinatesRow.setResult(hitChecker.checkHit(coordinatesRow.getX(),
-                coordinatesRow.getY(), coordinatesRow.getR()));
+
+        coordinatesRow.setResult(hitChecker.checkHit(coordinatesRow.getxValue(),
+                coordinatesRow.getyValue(), coordinatesRow.getrValue()));
         rowDao.addRow(coordinatesRow);
 
     }

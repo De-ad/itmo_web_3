@@ -22,16 +22,6 @@ public class CoordinatesRow implements Serializable {
     private Integer rValue;
     private boolean result;
 
-    public boolean getResult() {
-        return result;
-    }
-
-    public void setResult(boolean result) {
-        this.result = result;
-    }
-
-    public CoordinatesRow() {
-    }
 
     public int getId() {
         return id;
@@ -41,28 +31,36 @@ public class CoordinatesRow implements Serializable {
         this.id = id;
     }
 
-    public double getX() {
+    public Double getxValue() {
         return xValue;
     }
 
-    public void setX(double x) {
-        xValue = x;
+    public void setxValue(Double xValue) {
+        this.xValue = xValue;
     }
 
-    public double getY() {
+    public Double getyValue() {
         return yValue;
     }
 
-    public void setY(double y) {
-        yValue = y;
+    public void setyValue(Double yValue) {
+        this.yValue = yValue;
     }
 
-    public int getR() {
+    public Integer getrValue() {
         return rValue;
     }
 
-    public void setR(int r) {
-        rValue = r;
+    public void setrValue(Integer rValue) {
+        this.rValue = rValue;
+    }
+
+    public boolean isResult() {
+        return result;
+    }
+
+    public void setResult(boolean result) {
+        this.result = result;
     }
 
     @Override
