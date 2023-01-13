@@ -1,5 +1,4 @@
 $(function (){
-
     function updateClock() {
         let date = new Date();
         let day = date.getUTCDay();

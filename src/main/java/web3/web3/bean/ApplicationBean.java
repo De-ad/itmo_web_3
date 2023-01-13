@@ -15,28 +15,41 @@ import java.util.List;
 @ApplicationScoped
 @ManagedBean(name = "applicationBean")
 public class ApplicationBean implements Serializable{
-    public List<CoordinatesRow> coordinatesRowList;
-    public HitChecker hitChecker;
-    public RowDaoImpl rowDao;
+    private RowDaoImpl rowDao;
+    private List<CoordinatesRow> coordinatesRowList;
+    private HitChecker hitChecker;
+    private CoordinatesRow coordinatesRow = new CoordinatesRow();
 
-    public void setCoordinatesRow(){
-
+    public ApplicationBean() {
     }
 
+    public List<CoordinatesRow> getCoordinatesRowList() {
+        return coordinatesRowList;
+    }
 
-
+    public void setCoordinatesRowList(List<CoordinatesRow> coordinatesRowList) {
+        this.coordinatesRowList = coordinatesRowList;
+    }
 
     public void add(CoordinatesRow coordinatesRow){
-        if (hitChecker.checkHit(coordinatesRow.getX(), coordinatesRow.getY(), coordinatesRow.getR())) {
-            rowDao.addRow(coordinatesRow);
+// TODO: verify getting data
+        coordinatesRow.setResult(hitChecker.checkHit(coordinatesRow.getX(),
+                coordinatesRow.getY(), coordinatesRow.getR()));
+        rowDao.addRow(coordinatesRow);
 
-        }
     }
 
+    public CoordinatesRow getCoordinatesRow() {
+        return coordinatesRow;
+    }
 
+    public void setCoordinatesRow(CoordinatesRow coordinatesRow) {
+        this.coordinatesRow = coordinatesRow;
+    }
 
     public void clean(){
         rowDao.clean();
+        coordinatesRowList.clear();
     }
 
 }

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui" xml:lang="en" lang="en">
@@ -12,47 +10,56 @@
             <!--link-->
             <a href="index.xhtml"> Link to the start page </a>
             <!--graph-->
-             <canvas id="plot">
+            <div>
+            <canvas id="plot" style="height: 300px; width: 300px">
                 <h:outputScript library="js" name="validator.js"/>
-                <h:outputScript library="js" name="canvasHandler.js"/>
-                <h:outputScript library="js" name="sendHandler.js"/>
+                <h:outputScript library="js" name="canvasToFormManager.js"/>
             </canvas>
+            </div>
+
             <!--form-->
             <h:form>
                 <h:outputLabel value="X: " for="x_coord"/>
-                <p:spinner stepFactor="0.5" id="x_coord" value="#{coordinatesManagedBean.coordinatesRow.xValue}"/>
+                <p:spinner stepFactor="0.5" id="x_coord" value="#{applicationBean.coordinatesRow.x}"/>
 
                 <h:outputLabel value="Y: "/>
-                <h:inputText id="y_coord" value="#{coordinatesManagedBean.coordinatesRow.yValue}"/>
+                <h:inputText id="y_coord" value="#{applicationBean.coordinatesRow.y}"/>
 
                 <h:outputLabel value="R: "/>
-                <h:selectOneRadio>
+                <h:selectOneRadio value="#{applicationBean.coordinatesRow.r}">
                     <f:selectItem itemValue="1" itemLabel="1"/>
                     <f:selectItem itemValue="2" itemLabel="2"/>
                     <f:selectItem itemValue="3" itemLabel="3"/>
                     <f:selectItem itemValue="4" itemLabel="4"/>
                     <f:selectItem itemValue="5" itemLabel="5"/>
                 </h:selectOneRadio>
-                <h:commandButton value="#{coordinatesManagedBean.addRow}"></h:commandButton>
-                <h:commandButton value="#{coordinatesManagedBean.clearRows}"></h:commandButton>
+                <h:commandButton label="send" value="#{applicationBean.add}"> </h:commandButton>
+                <h:commandButton label="clean" value="#{applicationBean.clean}"> </h:commandButton>
             </h:form>
 
 
             <!--table-->
+<!--            TODO: table-->
             <h:dataTable>
                 <h:column>
-                    <f:facet name="X"></f:facet>
+                    <f:facet name="X"> </f:facet>
                 </h:column>
                 <h:column>
-                    <f:facet name="Y"></f:facet>
+                    <f:facet name="Y"> </f:facet>
                 </h:column>
                 <h:column>
-                    <f:facet name="R"></f:facet>
+                    <f:facet name="R"> </f:facet>
                 </h:column>
             </h:dataTable>
+            <h:form id="hidden_form" style="display: none;">
+                <h:inputHidden id="hidden_x" value="#{applicationBean.coordinatesRow.x}"/>
+                <h:inputHidden id="hidden_y" value="#{applicationBean.coordinatesRow.y}"/>
+                <h:inputHidden id="hidden_r" value="#{applicationBean.coordinatesRow.r}"/>
+                <h:commandButton id="send_hidden" label="send" style="display: none" value="#{applicationBean.add}">
+                </h:commandButton>
+            </h:form>
 
-            <h:outputScript library="js" name="canvasHandler.js"></h:outputScript>
-
+            <h:outputScript library="js" name="canvasHandler.js"/>
         </ui:define>
 
 <!-- components with validation -->

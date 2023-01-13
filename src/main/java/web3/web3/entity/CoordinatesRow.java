@@ -20,8 +20,15 @@ public class CoordinatesRow implements Serializable {
     private Double yValue;
     @Column(name = "R_VAL")
     private Integer rValue;
-    private String result;
+    private boolean result;
 
+    public boolean getResult() {
+        return result;
+    }
+
+    public void setResult(boolean result) {
+        this.result = result;
+    }
 
     public CoordinatesRow() {
     }
