@@ -19,11 +19,24 @@
 
             <!--form-->
             <h:form>
+
                 <h:outputLabel value="X: " for="x_coord"/>
                 <p:spinner stepFactor="0.5" id="x_coord" value="#{applicationBean.coordinatesRow.xValue}"/>
 
                 <h:outputLabel value="Y: "/>
-                <h:inputText id="y_coord" value="#{applicationBean.coordinatesRow.yValue}"/>
+                <h:inputText id="y_coord"
+                             required="true"
+                             validator="validatorForY"
+                             requiredMessage="Y should be double: [-5;3]"
+                             converterMessage="Y should be double: [-5;3]"
+                             validatorMessage="Y should be double: [-5;3]"
+                             value="#{applicationBean.coordinatesRow.yValue}">
+                <f:validator validatorId="validatorForY"/>
+                <f:ajax execute="@this" render="yStackTrace"/>
+                </h:inputText>
+                <div id="yDivST">
+                    <h:message id="yStackTrace" for="y_coord"/>
+                </div>
 
                 <h:outputLabel value="R: "/>
                 <h:selectOneRadio value="#{applicationBean.coordinatesRow.rValue}">
@@ -33,8 +46,8 @@
                     <f:selectItem itemValue="4" itemLabel="4"/>
                     <f:selectItem itemValue="5" itemLabel="5"/>
                 </h:selectOneRadio>
-                <h:commandButton label="send" action="#{applicationBean.add}"> </h:commandButton>
-                <h:commandButton label="clean" action="#{applicationBean.clean}"> </h:commandButton>
+                <h:commandButton value="send" label="send" action="#{applicationBean.add}"> </h:commandButton>
+                <h:commandButton value="clean" label="clean" action="#{applicationBean.clean}"> </h:commandButton>
             </h:form>
 
 

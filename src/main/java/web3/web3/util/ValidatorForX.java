@@ -8,7 +8,7 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-@FacesValidator("XValidator")
+@FacesValidator("validatorForX")
 public class ValidatorForX implements Validator<Object> {
     private Double xValue;
 

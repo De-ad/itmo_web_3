@@ -17,10 +17,11 @@ import java.util.List;
 public class ApplicationBean implements Serializable{
     private RowDaoImpl rowDao;
     private List<CoordinatesRow> coordinatesRowList;
-    private HitChecker hitChecker;
+    private HitChecker hitChecker = new HitChecker();
     private CoordinatesRow coordinatesRow = new CoordinatesRow();
 
     public ApplicationBean() {
+
     }
 
     public List<CoordinatesRow> getCoordinatesRowList() {
@@ -33,10 +34,17 @@ public class ApplicationBean implements Serializable{
 
     public void add(){
 // TODO: verify getting data
+        // TODO: nano time
+
+        System.out.println(coordinatesRow.getxValue());
+        System.out.println(coordinatesRow.getyValue());
+        System.out.println(coordinatesRow.getrValue());
 
         coordinatesRow.setResult(hitChecker.checkHit(coordinatesRow.getxValue(),
                 coordinatesRow.getyValue(), coordinatesRow.getrValue()));
-        rowDao.addRow(coordinatesRow);
+
+//        TODO:fix database
+//        rowDao.addRow(coordinatesRow);
 
     }
 

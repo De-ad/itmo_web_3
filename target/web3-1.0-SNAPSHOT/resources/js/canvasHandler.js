@@ -71,7 +71,7 @@ function clickListener(canvas, event){
 function drawTriangle(ctx){
     ctx.beginPath();
     ctx.fillStyle = "rgba(238, 128, 125, 0.3)";
-    ctx.moveTo(150,50);
+    ctx.moveTo(150,250);
     ctx.lineTo(250,150);
     ctx.lineTo(150,150);
     ctx.fill();
@@ -89,7 +89,7 @@ function drawCircle(ctx){
     ctx.beginPath();
     ctx.fillStyle = "rgba(238, 128, 125, 0.3)";
     ctx.moveTo(150, 150);
-    ctx.arc(150, 150, 50, 0.5 * Math.PI, Math.PI, false);
+    ctx.arc(150 ,150 , 50, Math.PI, 1.5 * Math.PI, false);
     ctx.lineTo(150,150);
     ctx.fill();
 }
@@ -98,10 +98,11 @@ function drawSquare(ctx){
     console.log("Inside square");
     ctx.beginPath();
     ctx.fillStyle = "rgba(238, 128, 125, 0.3)"
-    ctx.moveTo(150,250);
+    ctx.moveTo(50,150);
     ctx.lineTo(150,150);
-    ctx.lineTo(200,150);
-    ctx.lineTo(200,250);
+    ctx.lineTo(150,200);
+    ctx.lineTo(50,200);
+    ctx.lineTo(50,150);
     ctx.fill();
 }
 
