@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "coordinates", schema = "results")
+@Table(name = "coordinates")
 public class CoordinatesRow implements Serializable {
     private static final long serialVersionUID = 1L;
     @GenericGenerator(name = "generator", strategy = "increment")
@@ -20,6 +20,7 @@ public class CoordinatesRow implements Serializable {
     private Double yValue;
     @Column(name = "R_VAL")
     private Integer rValue;
+    @Column(name = "RESULT")
     private boolean result;
 
 

@@ -18,7 +18,7 @@
             </div>
 
             <!--form-->
-            <h:form>
+            <h:form id="form">
 
                 <h:outputLabel value="X: " for="x_coord"/>
                 <p:spinner stepFactor="0.5" id="x_coord" value="#{applicationBean.coordinatesRow.xValue}"/>
@@ -39,13 +39,20 @@
                 </div>
 
                 <h:outputLabel value="R: "/>
-                <h:selectOneRadio value="#{applicationBean.coordinatesRow.rValue}">
-                    <f:selectItem itemValue="1" itemLabel="1"/>
-                    <f:selectItem itemValue="2" itemLabel="2"/>
-                    <f:selectItem itemValue="3" itemLabel="3"/>
-                    <f:selectItem itemValue="4" itemLabel="4"/>
-                    <f:selectItem itemValue="5" itemLabel="5"/>
-                </h:selectOneRadio>
+                <h:inputText id="r_coord"
+                             required="true"
+                             validator="validatorForR"
+                             requiredMessage="R should be int: [1;5]"
+                             converterMessage="R should be int: [1;5]"
+                             validatorMessage="R should be int: [1;5]"
+                             value="#{applicationBean.coordinatesRow.rValue}">
+                    <f:validator validatorId="validatorForR"/>
+                    <f:ajax execute="@this" render="rStackTrace" onevent="rChanged()" />
+                </h:inputText>
+                <div id="rDivST">
+                    <h:message id="rStackTrace" for="r_coord"/>
+                    <span id="r_error"> </span>
+                </div>
                 <h:commandButton value="send" label="send" action="#{applicationBean.add}"> </h:commandButton>
                 <h:commandButton value="clean" label="clean" action="#{applicationBean.clean}"> </h:commandButton>
             </h:form>
@@ -55,24 +62,34 @@
 <!--            TODO: table-->
             <h:dataTable>
                 <h:column>
-                    <f:facet name="X"> </f:facet>
+                    <f:facet name="header">X</f:facet>
                 </h:column>
                 <h:column>
-                    <f:facet name="Y"> </f:facet>
+                    <f:facet name="header">Y</f:facet>
                 </h:column>
                 <h:column>
-                    <f:facet name="R"> </f:facet>
+                    <f:facet name="header">R</f:facet>
                 </h:column>
+                <h:column>
+                    <f:facet name="header">Result</f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Execution</f:facet>
+                </h:column>
+
             </h:dataTable>
             <h:form id="hidden_form" style="display: none;">
                 <h:inputHidden id="hidden_x" value="#{applicationBean.coordinatesRow.xValue}"/>
                 <h:inputHidden id="hidden_y" value="#{applicationBean.coordinatesRow.yValue}"/>
                 <h:inputHidden id="hidden_r" value="#{applicationBean.coordinatesRow.rValue}"/>
                 <h:commandButton id="send_hidden" label="send" style="display: none" action="#{applicationBean.add}">
+<!--                    TODO: onevent-->
+<!--                    <f:ajax execute="hidden_form" render="results" onevent="drawLastDot()"/>-->
                 </h:commandButton>
             </h:form>
 
             <h:outputScript library="js" name="canvasHandler.js"/>
+            <h:outputScript library="js" name="validator.js"/>
         </ui:define>
 
 <!-- components with validation -->

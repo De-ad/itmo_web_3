@@ -4,19 +4,18 @@ package web3.web3.bean;
 import web3.web3.DAO.RowDaoImpl;
 import web3.web3.entity.CoordinatesRow;
 import web3.web3.util.HitChecker;
-import web3.web3.util.ValidatorForX;
-import web3.web3.util.ValidatorForY;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
 @ManagedBean(name = "applicationBean")
 public class ApplicationBean implements Serializable{
-    private RowDaoImpl rowDao;
-    private List<CoordinatesRow> coordinatesRowList;
+    private RowDaoImpl rowDao = new RowDaoImpl();
+    private  List<CoordinatesRow> coordinatesRowList = new ArrayList<>();
     private HitChecker hitChecker = new HitChecker();
     private CoordinatesRow coordinatesRow = new CoordinatesRow();
 
@@ -44,7 +43,8 @@ public class ApplicationBean implements Serializable{
                 coordinatesRow.getyValue(), coordinatesRow.getrValue()));
 
 //        TODO:fix database
-//        rowDao.addRow(coordinatesRow);
+        System.out.println(coordinatesRow);
+        rowDao.addRow(coordinatesRow);
 
     }
 

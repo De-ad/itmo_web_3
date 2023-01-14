@@ -6,7 +6,7 @@ const MIN_Y = -5;
 
 const validateR = (value) => {
     let correctValues = ["1", "2", "3", "4", "5"].map(Number);
-    if ((value.toString().trim() === "") || isNaN(Number(value))){
+    if (value == null || (value.toString().trim() === "") || isNaN(Number(value))){
         return false;
     }
     const r = parseFloat(value);

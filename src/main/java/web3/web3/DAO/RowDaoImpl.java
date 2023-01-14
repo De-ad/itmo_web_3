@@ -1,6 +1,7 @@
 package web3.web3.DAO;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import web3.web3.entity.CoordinatesRow;
@@ -10,14 +11,13 @@ import java.io.Serializable;
 import java.util.List;
 
 public class RowDaoImpl implements RowDao, Serializable {
+        private final SessionFactory manager = SessionFactoryManager.getSession();
 
     @Override
     public void addRow(CoordinatesRow coordinatesRow) {
-        Session session = SessionFactoryManager.getSession().openSession();
-//      session.beginTransaction?
-        Transaction transaction = session.getTransaction();
+        Session session = manager.openSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            transaction.begin();
             session.save(coordinatesRow);
             transaction.commit();
         }
@@ -25,28 +25,21 @@ public class RowDaoImpl implements RowDao, Serializable {
             if (transaction.getStatus() == TransactionStatus.MARKED_ROLLBACK || transaction.isActive())
             transaction.rollback();
         }
-        finally {
-            session.close();
-        }
 
-    }
-
-    @Override
-    public void clean() {
-        Session session = SessionFactoryManager.getSession().openSession();
-        Transaction transaction = session.beginTransaction();
-        session.clear();
-        transaction.commit();
     }
 
     @Override
     public List<CoordinatesRow> getAll() {
-        Session session = SessionFactoryManager.getSession().openSession();
-        Transaction transaction = session.beginTransaction();
-         List<CoordinatesRow> coordinatesRows = (List<CoordinatesRow>) SessionFactoryManager
-                .getSession()
-                .openSession()
-                .createQuery("From CoordinatesRow").list();
-         return coordinatesRows;
+        Session currentSession = manager.getCurrentSession();
+        currentSession.beginTransaction();
+        return currentSession.createQuery( "FROM CoordinatesRow ").list();
+    }
+
+    @Override
+    public void clean() {
+        Session currentSession = manager.getCurrentSession();
+        currentSession.beginTransaction();
+        currentSession.clear();
+        currentSession.getTransaction().commit();
     }
 }

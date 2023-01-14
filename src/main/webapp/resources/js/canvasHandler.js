@@ -7,6 +7,7 @@ const canvas = document.getElementById("plot");
 canvas.width = width;
 canvas.height = height;
 const ctx = canvas.getContext('2d');
+var r = null;
 
 function draw() {
     drawCircle(ctx);
@@ -15,18 +16,19 @@ function draw() {
     drawLines(ctx);
 }
 
-draw();
+firstDrawHandler();
 
 function addMouseListener(){
     canvas.addEventListener("mousedown", function (e){
         clickListener(canvas, e, ctx);
     });
 }
-//
-// function firstDrawHandler(){
-//     addMouseListener();
-//     draw();
-// }
+
+
+function firstDrawHandler(){
+    addMouseListener();
+    draw();
+}
 
 
 
@@ -42,24 +44,49 @@ function handleRChange(){
     return false;
 }
 
+function getDots(arr){
+    array = arr;
+}
+
+function cleanCanvas(){
+    ctx.clearRect(0, 0, width, height);
+}
+
+function rChanged(){
+    r = $("#form\\:r_coord").val();
+    // var r_2 = document.getElementById("r_coord").value;
+    console.log("inside r changed");
+    console.log(r);
+    // console.log(r_2 + " r_2");
+}
+
 function clickListener(canvas, event){
     console.log("here comes the click listener");
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    let r = $('#R_value').val();
+    // console.log(r);
     if (validateR(r)) {
         const k = r/radius_pix;
         let xok = (x -  width/2)*k;
         let yok = (height/2 - y)*k;
+        setHiddenFormData(xok,yok,r);
         // setCanvasCoordinates(xok,yok);
         // sendCanvasRequest(getCoordinates());
     }
     else {
-        document.querySelector("#R_error").innerHTML ="error: r is not set";
+        document.getElementById("r_error").innerHTML ="error: r is not set";
         console.log("error: r is not valid");
     }
 }
+// function drawDot(x, y, r, ctx, hit){
+//     ctx.beginPath();
+//     (hit) ? ctx.fillStyle = "rgb(34,255,0)" : ctx.fillStyle = "rgb(255,7,0)";
+//     let cx = 150 + 100/ r * x;
+//     let cy = 150 - 100/ r * y;
+//     ctx.arc(cx, cy, 3, 0, 360);
+//     ctx.fill();
+// }
 
 // function drawClickDot(x, y, r, ctx){
 //     ctx.beginPath();
@@ -76,14 +103,7 @@ function drawTriangle(ctx){
     ctx.lineTo(150,150);
     ctx.fill();
 }
-// function drawDot(x, y, r, ctx, hit){
-//     ctx.beginPath();
-//     (hit) ? ctx.fillStyle = "rgb(34,255,0)" : ctx.fillStyle = "rgb(255,7,0)";
-//     let cx = 150 + 100/ r * x;
-//     let cy = 150 - 100/ r * y;
-//     ctx.arc(cx, cy, 3, 0, 360);
-//     ctx.fill();
-// }
+
 
 function drawCircle(ctx){
     ctx.beginPath();
@@ -95,7 +115,6 @@ function drawCircle(ctx){
 }
 
 function drawSquare(ctx){
-    console.log("Inside square");
     ctx.beginPath();
     ctx.fillStyle = "rgba(238, 128, 125, 0.3)"
     ctx.moveTo(50,150);
@@ -167,11 +186,4 @@ function drawLines(ctx){
 
 }
 
-function getDots(arr){
-    array = arr;
-}
-
-function cleanCanvas(){
-    ctx.clearRect(0, 0, width, height);
-}
 
